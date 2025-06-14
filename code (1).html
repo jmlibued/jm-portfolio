@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Cybersecurity Portfolio</title>
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background:
+      linear-gradient(rgba(15, 20, 36, 0.85), rgba(15, 20, 36, 0.85)),
+      url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ae29e1d7-9aa8-4aa8-b7d9-b56025c25434.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #c0c9d9;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: #0ef;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #3ff;
+    outline: none;
+  }
+
+  /* Utility containers */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 20, 36, 0.85);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid rgba(32, 138, 254, 0.3);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+  .logo {
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: #0ef;
+    letter-spacing: 1.3px;
+    user-select: none;
+  }
+  nav {
+    display: flex;
+    gap: 32px;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    padding: 6px 0;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: #0ef;
+    transition: width 0.3s ease;
+  }
+  nav a:hover::after,
+  nav a:focus::after {
+    width: 100%;
+  }
+
+  /* Hamburger menu for mobile */
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0ef;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  /* Mobile nav */
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    background: rgba(15, 20, 36, 0.95);
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    max-width: 280px;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    z-index: 100;
+  }
+  .nav-mobile.show {
+    display: flex;
+  }
+  .nav-mobile a {
+    font-size: 1.2rem;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 239, 255, 0.15);
+    color: #0ef;
+  }
+  .nav-mobile a:last-child {
+    border-bottom: none;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 120px 24px 80px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #00f4ff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    text-shadow: 0 0 15px #00f4ff88;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    color: #a0b8d9;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #00f4ff, #0066ff);
+    padding: 16px 48px;
+    border-radius: 14px;
+    color: #0f1424;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px #00bfff88;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px #00bfffcc;
+    outline: none;
+  }
+
+  /* Sections */
+  section {
+    padding: 80px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  section h2 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #00c8ff;
+    margin-bottom: 48px;
+    text-align: center;
+    text-shadow: 0 0 10px #00c8ff88;
+  }
+
+  /* About */
+  .about p {
+    max-width: 660px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    color: #b0c7e3;
+  }
+
+  /* Skills */
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .skill-card {
+    background: rgba(0, 196, 255, 0.15);
+    border-radius: 12px;
+    padding: 20px 24px;
+    color: #00c8ff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 140px;
+    text-align: center;
+    box-shadow: 0 0 15px rgb(0 196 255 / 0.25);
+    transition: transform 0.3s ease;
+  }
+  .skill-card:hover,
+  .skill-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px rgb(0 196 255 / 0.75);
+    outline: none;
+  }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+  .project-card {
+    background: rgba(15, 20, 36, 0.7);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 0 10px #00aaff66;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+  }
+  .project-card:hover,
+  .project-card:focus-within {
+    box-shadow: 0 0 40px #00aaffcc;
+    transform: translateY(-8px);
+    outline: none;
+  }
+  .project-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #00f4ff;
+    margin-bottom: 12px;
+    text-shadow: 0 0 5px #00f4ffaa;
+  }
+  .project-description {
+    flex-grow: 1;
+    color: #a6bcd9;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 18px;
+  }
+  .project-links {
+    margin-top: auto;
+    display: flex;
+    gap: 16px;
+  }
+  .project-links a {
+    background: #0066ff;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 3px 10px rgb(0 102 255 / 0.7);
+  }
+  .project-links a:hover,
+  .project-links a:focus {
+    background: #0099ff;
+    box-shadow: 0 5px 20px #0099ffcc;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    background: rgba(15, 20, 36, 0.9);
+    padding: 40px 24px;
+    text-align: center;
+    color: #6789a6;
+    font-size: 0.9rem;
+    user-select: none;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Responsive */
+
+  @media (max-width: 640px) {
+    .hero h1 {
+      font-size: 2.4rem;
+    }
+    .container {
+      padding: 0 16px;
+    }
+    nav {
+      display: none;
+    }
+    .mobile-toggle {
+      display: block;
+    }
+    section {
+      padding: 60px 16px;
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 16px 0;
+    }
+    .skills-list {
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero h1 {
+      font-size: 3rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <div class="logo" tabindex="0" aria-label="Logo CyberSec Portfolio">CyberSecPortfolio</div>
+    <nav class="nav-desktop" role="navigation" aria-label="Primary navigation">
+      <a href="#about" tabindex="0">About</a>
+      <a href="#skills" tabindex="0">Skills</a>
+      <a href="#projects" tabindex="0">Projects</a>
+      <a href="#contact" tabindex="0">Contact</a>
+    </nav>
+    <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle mobile menu">&#9776;</button>
+  </div>
+  <nav class="nav-mobile" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="#about" tabindex="-1">About</a>
+    <a href="#skills" tabindex="-1">Skills</a>
+    <a href="#projects" tabindex="-1">Projects</a>
+    <a href="#contact" tabindex="-1">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" role="banner" aria-label="Introduction">
+    <h1>Defend, Detect, Deliver</h1>
+    <p>Portfolio of a cybersecurity professional dedicated to safeguarding digital assets and designing secure systems.</p>
+    <button class="btn-primary" onclick="window.location.href='#contact'">Get in Touch</button>
+  </section>
+
+  <section id="about" class="about" aria-label="About me">
+    <h2>About Me</h2>
+    <p>
+      I am a passionate cybersecurity specialist with expertise in threat analysis, penetration testing,
+      and secure architecture design. With a solid foundation in both offensive and defensive security,
+      I bridge the gap between vulnerabilities and protective solutions.
+    </p>
+  </section>
+
+  <section id="skills" aria-label="Skills and expertise">
+    <h2>Skills</h2>
+    <div class="skills-list">
+      <div class="skill-card" tabindex="0">Penetration Testing</div>
+      <div class="skill-card" tabindex="0">Network Security</div>
+      <div class="skill-card" tabindex="0">Incident Response</div>
+      <div class="skill-card" tabindex="0">Cloud Security (AWS, Azure)</div>
+      <div class="skill-card" tabindex="0">SIEM & Log Analysis</div>
+      <div class="skill-card" tabindex="0">Cryptography</div>
+      <div class="skill-card" tabindex="0">Malware Analysis</div>
+      <div class="skill-card" tabindex="0">Compliance & Governance</div>
+    </div>
+  </section>
+
+  <section id="projects" aria-label="Projects portfolio">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <article class="project-card" tabindex="0" aria-labelledby="project1-title">
+        <h3 id="project1-title" class="project-title">Red Team Attack Simulation</h3>
+        <p class="project-description">
+          Led a simulated cyberattack for a financial client identifying critical vulnerabilities and providing mitigations to improve their security posture.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/example/red-team-simulation" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+          <a href="https://example.com/red-team-report.pdf" target="_blank" rel="noopener noreferrer">Report PDF</a>
+        </div>
+      </article>
+      <article class="project-card" tabindex="0" aria-labelledby="project2-title">
+        <h3 id="project2-title" class="project-title">Cloud Security Framework</h3>
+        <p class="project-description">
+          Developed a custom cloud security framework including automated compliance checks and incident alerts for multi-cloud environments.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/example/cloud-security-framework" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </div>
+      </article>
+      <article class="project-card" tabindex="0" aria-labelledby="project3-title">
+        <h3 id="project3-title" class="project-title">Phishing Awareness Training</h3>
+        <p class="project-description">
+          Created interactive training modules to educate employees on identifying and handling phishing attacks, increasing company-wide awareness.
+        </p>
+        <div class="project-links">
+          <a href="https://example.com/phishing-training" target="_blank" rel="noopener noreferrer">Training Site</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" aria-label="Contact information and form">
+    <h2>Contact Me</h2>
+    <p style="text-align:center; max-width:600px; margin:auto 0 32px;">
+      Interested in collaborating or hiring? Send me a message - I’m always excited to connect.
+    </p>
+    <form style="max-width: 600px; margin: 0 auto;" action="mailto:email@example.com" method="post" enctype="text/plain" aria-label="Contact form">
+      <label for="name" style="display:block; margin-bottom:8px; font-weight:600; color:#00c8ff;">Name:</label>
+      <input type="text" id="name" name="Name" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-bottom: 24px; font-size: 1rem;">
+
+      <label for="email" style="display:block; margin-bottom:8px; font-weight:600; color:#00c8ff;">Email:</label>
+      <input type="email" id="email" name="Email" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-bottom: 24px; font-size: 1rem;">
+
+      <label for="message" style="display:block; margin-bottom:8px; font-weight:600; color:#00c8ff;">Message:</label>
+      <textarea id="message" name="Message" rows="6" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-bottom: 32px; font-size: 1rem; resize: vertical;"></textarea>
+
+      <button class="btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>© 2024 CyberSec Portfolio. All rights reserved.</p>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.querySelector('.mobile-toggle');
+  const navMobile = document.querySelector('.nav-mobile');
+  toggle.addEventListener('click', () => {
+    const isOpen = navMobile.classList.toggle('show');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    // Manage focusability of mobile nav links
+    const links = navMobile.querySelectorAll('a');
+    links.forEach(a => a.tabIndex = isOpen ? 0 : -1);
+  });
+
+  // Close mobile menu on link click
+  navMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMobile.classList.remove('show');
+      toggle.setAttribute('aria-expanded', 'false');
+      navMobile.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+    });
+  });
+
+  // Initialize mobile nav links tabindex to -1 (not focusable when hidden)
+  navMobile.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+</script>
+</body>
+</html>
+
